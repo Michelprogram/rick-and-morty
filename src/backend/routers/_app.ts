@@ -12,7 +12,8 @@ export const appRouter = router({
     .query(async ({ input }) => {
       const char = await getCharacter(input.id);
       return {
-        character: char.data,
+        name: char.data.name,
+        image: char.data.image,
       };
     }),
 });
