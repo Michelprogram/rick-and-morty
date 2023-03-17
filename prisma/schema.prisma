@@ -1,0 +1,17 @@
+datasource db {
+    url               = env("DATABASE_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+    provider          = "mysql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Vote {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    votedFor     String
+    votedAgainst String
+}
