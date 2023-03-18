@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { procedure, router } from "../trpc";
 import { getCharacter } from "rickmortyapi";
-import { prisma } from "@/backend/utils/prisma";
+import prisma from "@/backend/utils/prisma";
 
 export const appRouter = router({
   characterById: procedure
@@ -26,7 +26,10 @@ export const appRouter = router({
     )
     .mutation(async ({ input }) => {
       const voteInDb = await prisma.vote.create({
-        data: { ...input },
+        data: {
+          votedForId: input.votedFor,
+          votedAgainstId: input.votedAgainst,
+        },
       });
       return { success: true, vote: voteInDb };
     }),
